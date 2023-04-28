@@ -1,0 +1,33 @@
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>IDOR Page</title>
+        <link rel="stylesheet" type="text/css" href="Styles/Stylesheet.css" />
+    </head>
+
+<nav id="navigation">
+                <ul id="nav">
+                    <li><a href="Home.html"><img src="Images/BabyGoatMINITEXT.png" class='imgLogo'/></a></li>
+                    <li><a href="IDOR1.html">IDOR</a></li>
+                    <li><a href="SQL.html">SQL</a></li>
+                    <li><a href="XSS.html">XSS</a></li>
+                </ul>
+            </nav>
+
+
+<h3>Insecure Direct Object Referencing</h3>
+<br>
+<img src="Images/IDOR%20Example.png" class="imgRight"/>
+<p>
+    Insecure Direct Object Referencing (IDOR) is a common type of vulnerability that isn't exclusive to a certain language but rather relies on the security behind the website. IDOR is when a user can find different webpages, images or even log into a different account by using the internal file name and changing it via sending altered packages or by simply altering the URL. An example is when a potential attacker wants to log into another persons account, they would be able to check the internal names of variables or even the URL to find a weakspot. If the attacker sees something they can exploit like <b>ID=100</b> they can change their ID to a different number and try to send it off as a legitimate send request to the server. The server, if it sees the request as a legitimate one, will allow access to the account that the ID was changed to. This exploit mainly targets websites with many accounts like banks, Facebook, Twitter or any other website using log ins.
+</p>
+
+
+<h4>Testing IDOR</h4>
+<p>
+    To try out this exploit try typing in the URL <b>'IDOR2.html'</b> inplace of the original <b>'IDOR1.html'</b>. You will be taken to the hidden webpage.
+</p>
+
+
+
+
+

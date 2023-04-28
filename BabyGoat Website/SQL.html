@@ -1,0 +1,62 @@
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>SQL Page</title>
+        <link rel="stylesheet" type="text/css" href="Styles/Stylesheet.css" />
+    </head>
+
+<nav id="navigation">
+                <ul id="nav">
+                    <li><a href="Home.html"><img src="Images/BabyGoatMINITEXT.png" class='imgLogo'/></a></li>
+                    <li><a href="IDOR1.html">IDOR</a></li>
+                    <li><a href="SQL.html">SQL</a></li>
+                    <li><a href="XSS.html">XSS</a></li>
+                </ul>
+            </nav>
+
+
+<h3>Structured Query Language Injection</h3>
+<br>
+<img src="Images/SQL%20Example.png" class="imgRight"/>
+<p>
+    Structured Query Language injection (SQL) is the most common type of website vulnerability, affecting approximately 33% of websites. SQL is usually found in <a href="https://owasp.org/www-project-top-ten/">OWASP's top ten</a> (A list by officials ranking the most critical website exploits every month). SQL injection works by taking advantage of websites using databases and intentially putting database commands into any given input box where the database will read the user input as an actual command instead of reading it as a string. This can lead to an attacker being able to request the database to return or edit any of the information that the database has using a simple command.<br> 
+    The attacker will have to figure out the names of the tables in the database to return them first. However this can be done in many different ways, but the command but a good example is the following query <i><b>(105 OR 1=1)</b></i>. If this command is ran through an input where the user can input a number or a user ID it will result in the SQL statement <i><b>(SELECT * FROM Users WHERE UserId = 105 OR 1=1;)</b></i>.<br>
+    This command works by searching for the user ID  <b>'105'</b> or any items where 1 is equal to 1, which is always true so it will just return all of the IDs to the attacker.
+</p>
+
+
+<h4>Testing SQL</h4>
+<p>
+    Below here you should see a text box asking for a user ID, try the previously mentioned statement to see how an SQL injection attack would normally play out.
+</p>
+
+
+
+
+<input type="text" id="InputBox" placeholder="Enter User ID">
+<button type="button" onclick="checkInput()">Check</button>
+<div id="Result"></div>
+
+<script>
+function checkInput() {
+  const input = document.getElementById("InputBox").value.toLowerCase();
+  const pattern = /105\s*(or|=)\s*1=1/;
+  if (pattern.test(input)) {
+    document.getElementById("Result").innerHTML = "User ID: 1,2,73,104,105,106";
+    document.getElementById("Result").style.display = "block";
+  } else {
+    document.getElementById("Result").innerHTML = "Incorrect ID";
+    document.getElementById("Result").style.display = "block";
+  }
+}
+</script>
+
+<h4>Deconstructing a command</h4>
+<p>
+    To better understand SQL it's vital to understand how each section of the SQL statement works, this will be demonstrated using the <br>statement from the example image. <b>(' UNION SELECT username, password FROM users--)</b>. The apostrophe is used to close<br>off any code before the input from any given input box so the rest of the statement can be identified as a statement and not as<br>a normal input. The <b>'UNION'</b> operator is used to combine the result of multiple SELECT statements, allowing this statement to<br>be more diverse and cast a wider net when trying to select the items in the database. The <b>SELECT</b> operator is used to select<br>any given item in a database and needs further instruction for it to work.
+    Both <b>username</b> and <b>password</b> are the items within the<br>database where this statement would be used. <b>FROM users</b> this part of the statement is used so that the database knows<br>where it's drawing its information from. Finally, the two hyphens are to comment out the rest of the code behind the scenes so only the SQL injection is read.
+
+</p>
+<h4>Prevention Methods</h4>
+<p>
+    As dangerous as this exploit is, there are a few methods that can be applied to prevent this. One of the easier options would be to use unconventional names in the database of the website, which makes it harder for the attacker to find the names they need to make a SQL injection statement. However, this comes with the downside of making developing the database quite difficult as the table names won't be easy to understand. <b>Input validation</b> is a useful method then ensures safety but comes at the cost limiting some options. It works by setting up a whitelist of accepted terms for any input areas. For example, only allowing the user to enter numbers for an age field or income. This can be done by using a drop down selection where the website provides preset options which stops attackers from inputting code entirely. Another way to prevent this is to have code in place that makes the website check any input for special characters commonly used in SQL injection statements like '=' or '"' which will severely limit any options an attacker has.
+</p>

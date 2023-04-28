@@ -1,0 +1,57 @@
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>XSS Page</title>
+        <link rel="stylesheet" type="text/css" href="Styles/Stylesheet.css" />
+    </head>
+
+<nav id="navigation">
+                <ul id="nav">
+                    <li><a href="Home.html"><img src="Images/BabyGoatMINITEXT.png" class='imgLogo'/></a></li>
+                    <li><a href="IDOR1.html">IDOR</a></li>
+                    <li><a href="SQL.html">SQL</a></li>
+                    <li><a href="XSS.html">XSS</a></li>
+                </ul>
+            </nav>
+
+
+<h3>Cross site Scripting</h3>
+<br>
+<img src="Images/XSS%20Example.png" class="imgRight"/>
+<p>
+    A very common website vulnerability, cross site scripting (XSS), allows an attacker to run malicious code by using a user's connection to a website. This is done when an attacker inputs javascript into an input box or anything where the server will take in information from a user. Attackers can use this to make links to websites with their malicious code embedded inside, so that when someone clicks on that link the code will be run along with the website it's linked with. This is hard to notice unless the malicious code has been set up to pop up or precautions are taken on websites. When these embedded links are clicked, it will be sent to the web server where the website is hosted and run the new code typed by the attacker into the server itself. This is called <b>reflective cross site scripting</b> where the malicious code is reflected back at the user so the code can be executed on the user's device. There's another version of XSS called <b>stored cross site scripting</b>, this is when malicious code is uploaded to the website's server and is stored to be executed every time a user accesses the website. <b>DOM-based XSS</b> is when data is sent from the DOM to a users system and the information sent contains malicious code and is executed on the users system.
+</p>
+
+<h3>Example code</h3>
+<p>
+    Due to XSS being a pervailant issue across the world wide web I will only be providing a segment of a XSS command and one that only would normally produce a message box. <b>( alert(‘xss’) )</b>. Try it below
+
+</p>
+
+<label for="password">Enter Password:</label>
+<input type="password" id="password" name="password" required>
+<button type="button" onclick="checkPassword()">Submit</button>
+
+<div id="MessageBox">
+  <p>xss</p>
+    <p>This is an example of XSS.</p>
+    <p>Keep in mind to not reproduce these exploits on actual websites as it is against the law.</p>
+</div>
+
+<script>
+    
+function checkPassword() {
+  var password = document.getElementById("password").value;
+  if (password == "alert(‘xss’)") {
+    document.getElementById("MessageBox").style.display = "block";
+  }
+}
+    
+</script>
+
+<br>
+
+<h3>Prevention Methods</h3>
+<p>
+    A solid method into preventing these kinds of attacks is to encode any and all data the user tries to input so that any potential commands are not read as active content. However, this is a timely manor and may require multiple different languages to fully setup. There is a command that can be used to save all uesr inputted content as a selected datatype, this command is <b>'Content-Type'</b> and allows the developer to change what the users input is saved and read as which will make a normal XSS code read as just a line of text.
+
+</p>
